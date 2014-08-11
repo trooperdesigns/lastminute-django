@@ -18,12 +18,11 @@ class Event(models.Model):
 class LMUser(models.Model):
 	user = models.OneToOneField(User)
 
+	username = models.CharField(max_length=25)
+
 	fbUser = models.CharField(max_length=100)
 	twitterUser = models.CharField(max_length=100)
 	googleUser = models.CharField(max_length=100)
-
-	eventsInvitedTo = models.TextField()
-	eventsInvitedToStatus = models.TextField()
 
 	created = models.DateTimeField(auto_now_add=True)
 

@@ -10,7 +10,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class LMUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LMUser
-        fields = ('eventsInvitedTo', 'eventsInvitedToStatus', 'fbUser', 'twitterUser', 'googleUser')
+        fields = ('url', 'username', 'fbUser', 'twitterUser', 'googleUser', 'created')
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -20,4 +20,4 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ('url', 'name', 'created', 'usersInvited', 'usersInvitedStatus')
+        fields = ('url', 'name', 'created', 'usersInvited', 'created')
