@@ -55,12 +55,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class LMUserViewSet(viewsets.ModelViewSet):
+class UserProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = LMUser.objects.all()
-    serializer_class = LMUserSerializer
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     """

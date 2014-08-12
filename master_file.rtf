@@ -20,14 +20,14 @@ drop table table_name_here;\
 select * from table_name_here;\
 \
 get token\
-curl  -X POST -d "username=trooper&password=designs\'94 http://localhost:8000/api-token-auth/\
+curl  -X POST -d "username=testUser2&password=test\'94 http://localhost:8000/api-token-auth/\
 curl -H \'93Authorization: JWT <INSERT TOKEN> \'93 http://localhost:8000/events/\
 \
 \{"username":"trooper","password":"designs"\}\
 \
 \
 \
-\
+todo:\
 Client-side:\
 - save authorization token returned from backend post request (signup)\
 - \
@@ -37,4 +37,8 @@ Client-side:\
 	- users can be created\
 	- only works for Users, not LMUser\
 	- authorization works\
-}
+08/11/14\
+- connected user_profile to user\
+	- linked by OneToOne \'97> to view custom attributes, need to look through user_profiles table and find matching key, and get attributes from there\
+	- i.e. user is id=1, then can use /user_profiles/1/ to get corresponding custom attributes\
+- added required parseUser attribute}

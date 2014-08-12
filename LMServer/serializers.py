@@ -1,33 +1,51 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from LMServer.models import Event, LMUser
+from LMServer.models import Event, UserProfile
 from django.db import models
 import time, datetime
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 
-    fbUser = serializers.SerializerMethodField('createLMUser')
- 
+    parseUser = serializers.SerializerMethodField('create_parse_user')
+    fbUser = serializers.SerializerMethodField('create_user_profile')
+
     ts = time.time()
     date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    user_profile_key = serializers.PrimaryKeyRelatedField()
+    #print lmuser 
     created = date
+
+    # parse account needs to be created and attached 
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups', 'fbUser')
+        fields = ('url', 'username', 'email', 'groups', 'password', 'parseUser', 'fbUser')
 
-    def createLMUser(self, obj):
+    def create_parse_user(self, obj):
+
+        # get parse user here
+
+        return "new parse user 123"
+
+    def create_user_profile(self, obj):
         #print "obj" + obj.username
-        lm1 = LMUser(user=obj, fbUser="12345", created=UserSerializer.created)
-        lm1.save()
-        return lm1.fbUser
+        profile = UserProfile(user=obj, parseUser="new_parse_user", fbUser="12345", created=UserSerializer.created)
+        profile.save()
+        return profile.fbUser 
 
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 
+    user = serializers.PrimaryKeyRelatedField()
 
-class LMUserSerializer(serializers.HyperlinkedModelSerializer):
+    # every user needs to be connected to a 
+    # parse account for push notifications
+    parseUser = serializers.CharField(required=True) 
+    fbUser = serializers.CharField(required=False)
+    #print user
+
     class Meta:
-        model = LMUser
-        fields = ('fbUser', 'twitterUser', 'googleUser', 'created')
+        model = UserProfile
+        fields = ('user', 'parseUser', 'fbUser')
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

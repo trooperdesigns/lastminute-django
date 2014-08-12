@@ -15,20 +15,23 @@ class Event(models.Model):
 	class Meta:
 		db_table = 'events'
 
-class LMUser(models.Model):
+class UserProfile(models.Model):
 	user = models.OneToOneField(User, primary_key=True)
 
 	username = models.CharField(max_length=25)
 
 	fbUser = models.CharField(max_length=100)
+	parseUser = models.CharField(max_length=100)
 	#twitterUser = models.CharField(max_length=100)
 	#googleUser = models.CharField(max_length=100)
 
 	created = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
-		db_table = 'lmusers'
+		db_table = 'user_profile'
 
-	def __unicode__(self, user, fbUser):
+	def __unicode__(self, user, parseUser, fbUser, created):
 		self.user = user
+		self.parseUser = parseUser
 		self.fbUser = fbUser
+		self.created = created
